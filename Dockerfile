@@ -32,6 +32,8 @@
 # Rultor has no dependency on these packages.
 
 FROM jupyter/datascience-notebook
+MAINTAINER Yegor Bugayenko <yegor256@gmail.com>
+LABEL Description="This is the default image for Aibolit" Vendor="Aibolit" Version="1.0"
 
 RUN wget -q https://github.com/yegor256/aibolit/releases/download/v1.0.0/dataset.zip
 RUN wget -q https://github.com/yegor256/aibolit/releases/download/v1.0.0/halstead.jar
@@ -62,6 +64,8 @@ ENV PULL_ID ${PULL_ID:-}
 ADD --chown=jovyan:users ./git_clone_and_pull_pr.sh .
 RUN chmod +x ./git_clone_and_pull_pr.sh
 RUN ./git_clone_and_pull_pr.sh
+
+WORKDIR /home/jovyan
 
 ENTRYPOINT []
 CMD ["aibolit", "train",  "--java_folder=/home/jovyan/in"]
